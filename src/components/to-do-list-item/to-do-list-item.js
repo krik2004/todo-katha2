@@ -57,7 +57,7 @@ export default class ToDoListItem extends Component {
           <button type="button" className="icon icon-destroy" onClick={onDeleted} aria-label="Delete item" />
         </div>
         <form onSubmit={this.onSubmitForm}>
-          <input type="text" className="edit" onChange={this.onInputChange} value={label} />
+          <input type="text" className="edit" onChange={this.onInputChange} value={this.state.label} />
         </form>
       </li>
     )
