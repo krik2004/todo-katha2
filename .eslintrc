@@ -3,16 +3,16 @@
   "plugins": ["react"],
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".jsx", ".js"] }],
-    "no-plusplus": "off",
+    "no-plusplus": "off"
   },
   "parserOptions": {
     "ecmaFeatures": {
-      "jsx": true,
+      "jsx": true
     },
     "ecmaVersion": "latest",
-    "sourceType": "module",
+    "sourceType": "module"
   },
   "env": {
-    "browser": true,
-  },
+    "browser": true
+  }
 }

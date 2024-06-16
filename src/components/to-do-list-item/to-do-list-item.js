@@ -1,45 +1,43 @@
-import './to-do-list-item.css';
-import React, { Component } from 'react';
-import { formatDistanceToNow } from 'date-fns';
-import PropTypes from 'prop-types';
+import './to-do-list-item.css'
+import React, { Component } from 'react'
+import { formatDistanceToNow } from 'date-fns'
+import PropTypes from 'prop-types'
 
 export default class ToDoListItem extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       label: props.label,
-    };
+    }
   }
 
   onInputChange = (e) => {
     this.setState({
       label: e.target.value,
-    });
-  };
+    })
+  }
 
   onSubmitForm = (e) => {
-    e.preventDefault();
-    const { onSaveEdited } = this.props;
-    const { label } = this.state;
-    onSaveEdited(label);
-  };
+    e.preventDefault()
+    const { onSaveEdited } = this.props
+    const { label } = this.state
+    onSaveEdited(label)
+  }
 
   render() {
-    const {
-      label, onToggleDone, onDeleted, done, dateOfCreate, onEditLabel, isEditing,
-    } = this.props;
+    const { label, onToggleDone, onDeleted, done, dateOfCreate, onEditLabel, isEditing } = this.props
 
-    let classNames = 'active';
+    let classNames = 'active'
     if (done) {
-      classNames = 'completed';
+      classNames = 'completed'
     } else if (isEditing) {
-      classNames = 'editing';
+      classNames = 'editing'
     }
 
     const timeDistance = formatDistanceToNow(dateOfCreate, {
       addSuffix: true,
       includeSeconds: true,
-    });
+    })
 
     return (
       <li className={classNames}>
@@ -62,7 +60,7 @@ export default class ToDoListItem extends Component {
           <input type="text" className="edit" onChange={this.onInputChange} value={label} />
         </form>
       </li>
-    );
+    )
   }
 }
 
@@ -70,7 +68,7 @@ ToDoListItem.defaultProps = {
   label: 'TEST1',
   done: true,
   isEditing: false,
-};
+}
 
 ToDoListItem.propTypes = {
   label: PropTypes.string,
@@ -81,4 +79,4 @@ ToDoListItem.propTypes = {
   onEditLabel: PropTypes.func.isRequired,
   isEditing: PropTypes.bool,
   onSaveEdited: PropTypes.func.isRequired,
-};
+}

@@ -1,17 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './footer.css';
+import React from 'react'
+import PropTypes from 'prop-types'
+import './footer.css'
 
-function Footer({
-  leftCount, setFilter, filter, clearCompleted,
-}) {
+function Footer({ leftCount, setFilter, filter, clearCompleted }) {
   return (
     <footer className="footer">
-      <span className="todo-count">
-        {leftCount}
-        {' '}
-        items left
-      </span>
+      <span className="todo-count">{leftCount} items left</span>
       <ul className="filters">
         <li>
           <button type="button" className={filter === 'all' ? 'selected' : ''} onClick={() => setFilter('all')}>
@@ -37,12 +31,12 @@ function Footer({
         Clear completed
       </button>
     </footer>
-  );
+  )
 }
 Footer.propTypes = {
   setFilter: PropTypes.func.isRequired,
   clearCompleted: PropTypes.func.isRequired,
   filter: PropTypes.string.isRequired,
   leftCount: PropTypes.number.isRequired,
-};
-export default Footer;
+}
+export default Footer

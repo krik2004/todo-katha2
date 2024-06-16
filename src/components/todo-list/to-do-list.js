@@ -1,17 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import ToDoListItem from '../to-do-list-item/to-do-list-item';
-import './todo-list.css';
+import ToDoListItem from '../to-do-list-item/to-do-list-item'
+import './todo-list.css'
 
-function ToDoList({
-  todos, filter, onToggleDone, onDeleted, onEditLabel, onSaveEdited,
-}) {
-  let filteredTodos = todos;
+function ToDoList({ todos, filter, onToggleDone, onDeleted, onEditLabel, onSaveEdited }) {
+  let filteredTodos = todos
   if (filter === 'completed') {
-    filteredTodos = todos.filter((todo) => todo.done);
+    filteredTodos = todos.filter((todo) => todo.done)
   } else if (filter === 'active') {
-    filteredTodos = todos.filter((todo) => !todo.done);
+    filteredTodos = todos.filter((todo) => !todo.done)
   }
   const elements = filteredTodos.map((item) => (
     <ToDoListItem
@@ -26,21 +24,21 @@ function ToDoList({
       isEditing={item.isEditing}
       onSaveEdited={(label) => onSaveEdited(item.id, label)}
     />
-  ));
-  return <ul className="list-group todo-list">{elements}</ul>;
+  ))
+  return <ul className="list-group todo-list">{elements}</ul>
 }
 
 ToDoList.defaultProps = {
   filter: 'active',
   onDeleted: () => {
     // eslint-disable-next-line no-console
-    console.log('onDelete default function');
+    console.log('onDelete default function')
   },
   onToggleDone: () => {
     // eslint-disable-next-line no-console
-    console.log('onToggleDone default function');
+    console.log('onToggleDone default function')
   },
-};
+}
 
 const TodoItemShape = PropTypes.shape({
   label: PropTypes.string.isRequired,
@@ -48,11 +46,10 @@ const TodoItemShape = PropTypes.shape({
   done: PropTypes.bool.isRequired,
   dateOfCreate: PropTypes.instanceOf(Date).isRequired,
   isEditing: PropTypes.bool.isRequired,
-});
+})
 ToDoListItem.defaultProps = {
-
   isEditing: false,
-};
+}
 
 ToDoList.propTypes = {
   todos: PropTypes.arrayOf(TodoItemShape).isRequired,
@@ -61,5 +58,5 @@ ToDoList.propTypes = {
   filter: PropTypes.string,
   onEditLabel: PropTypes.func.isRequired,
   onSaveEdited: PropTypes.func.isRequired,
-};
-export default ToDoList;
+}
+export default ToDoList

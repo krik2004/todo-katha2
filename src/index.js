@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom/client'
 
-import ToDoList from './components/todo-list';
-import Newtaskform from './components/new-task-form';
-import Footer from './components/footer';
+import ToDoList from './components/todo-list'
+import Newtaskform from './components/new-task-form'
+import Footer from './components/footer'
 
-import './index.css';
+import './index.css'
 
 class App extends Component {
-  maxID = 100;
+  maxID = 100
 
   constructor() {
-    super();
+    super()
     this.state = {
       todoData: [
         {
@@ -38,7 +38,7 @@ class App extends Component {
         },
       ],
       filter: 'all',
-    };
+    }
   }
 
   addItem = (label) => {
@@ -48,68 +48,66 @@ class App extends Component {
       done: false,
       dateOfCreate: new Date(),
       editing: false,
-    };
+    }
 
     this.setState(({ todoData }) => {
-      const newArray = [...todoData, newItem];
-      return { todoData: newArray };
-    });
-  };
+      const newArray = [...todoData, newItem]
+      return { todoData: newArray }
+    })
+  }
 
   deleteItem = (id) => {
     this.setState(({ todoData }) => {
-      const idx = todoData.findIndex((el) => el.id === id);
-      const newArray = [...todoData.slice(0, idx), ...todoData.slice(idx + 1)];
+      const idx = todoData.findIndex((el) => el.id === id)
+      const newArray = [...todoData.slice(0, idx), ...todoData.slice(idx + 1)]
       return {
         todoData: newArray,
-      };
-    });
-  };
+      }
+    })
+  }
 
   onToggleDone = (id) => {
     this.setState(({ todoData }) => {
-      const idx = todoData.findIndex((el) => el.id === id);
-      const oldItem = todoData[idx];
-      const newItem = { ...oldItem, done: !oldItem.done };
-      const newArray = todoData.with([idx], newItem);
-      return { todoData: newArray };
-    });
-  };
+      const idx = todoData.findIndex((el) => el.id === id)
+      const oldItem = todoData[idx]
+      const newItem = { ...oldItem, done: !oldItem.done }
+      const newArray = todoData.with([idx], newItem)
+      return { todoData: newArray }
+    })
+  }
 
   setFilter = (filterOption) => {
-    this.setState({ filter: filterOption });
-  };
+    this.setState({ filter: filterOption })
+  }
 
   clearCompleted = () => {
-    this.setState(({ todoData }) => ({ todoData: todoData.filter((todo) => !todo.done) }));
-  };
+    this.setState(({ todoData }) => ({ todoData: todoData.filter((todo) => !todo.done) }))
+  }
 
   onEditLabel = (id, e) => {
-    e.preventDefault();
+    e.preventDefault()
     this.setState(({ todoData }) => {
-      const idxEdit = todoData.findIndex((el) => el.id === id);
-      const oldItem = todoData[idxEdit];
-      const newItem = { ...oldItem, isEditing: !oldItem.isEditing };
-      const newArray = todoData.with([idxEdit], newItem);
-      return { todoData: newArray };
-    });
-  };
+      const idxEdit = todoData.findIndex((el) => el.id === id)
+      const oldItem = todoData[idxEdit]
+      const newItem = { ...oldItem, isEditing: !oldItem.isEditing }
+      const newArray = todoData.with([idxEdit], newItem)
+      return { todoData: newArray }
+    })
+  }
 
   onSaveEdited = (id, label) => {
     this.setState(({ todoData }) => {
-      const idxSave = todoData.findIndex((el) => el.id === id);
-      const oldItem = todoData[idxSave];
-      const newItem = { ...oldItem, label, isEditing: !oldItem.isEditing };
-      const newArray = todoData.with([idxSave], newItem);
-      return { todoData: newArray };
-    });
-  };
+      const idxSave = todoData.findIndex((el) => el.id === id)
+      const oldItem = todoData[idxSave]
+      const newItem = { ...oldItem, label, isEditing: !oldItem.isEditing }
+      const newArray = todoData.with([idxSave], newItem)
+      return { todoData: newArray }
+    })
+  }
 
   render() {
-    const {
-      todoData, filter, dateOfCreate, isEditing,
-    } = this.state;
-    const leftCount = todoData.filter((el) => !el.done).length;
+    const { todoData, filter, dateOfCreate, isEditing } = this.state
+    const leftCount = todoData.filter((el) => !el.done).length
 
     return (
       <section className="todoapp">
@@ -137,10 +135,10 @@ class App extends Component {
           />
         </section>
       </section>
-    );
+    )
   }
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root'))
 
-root.render(<App />);
+root.render(<App />)
