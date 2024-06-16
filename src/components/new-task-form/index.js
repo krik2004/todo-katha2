@@ -1,2 +1,3 @@
-import Newtaskform from './new-task-form'
-export default Newtaskform
+import Newtaskform from './new-task-form';
+
+export default Newtaskform;
