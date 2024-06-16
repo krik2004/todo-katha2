@@ -67,7 +67,7 @@ export default class ToDoListItem extends Component {
 }
 
 ToDoListItem.defaultProps = {
-  label: 'TEST',
+  label: 'TEST1',
   done: true,
   isEditing: false,
 };
