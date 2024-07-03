@@ -45,6 +45,7 @@ export default class Newtaskform extends Component {
         label: '',
         min: '',
         sec: '',
+		
       })
     }
   }
