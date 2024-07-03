@@ -166,7 +166,7 @@ button::-moz-focus-inner {
 	color: #cdcdcd;
 	text-decoration: line-through;
 }
-.todo-list li .icon {
+/* .todo-list li .icon {
 	position: absolute;
 	top: 0;
 	bottom: -3px;
@@ -177,6 +177,30 @@ button::-moz-focus-inner {
 	margin: auto 0 11px;
 	transition: color 0.2s ease-out;
 	cursor: pointer;
+} */
+
+
+.todo-list li .icon {
+	width: 30px;
+	height: 40px;
+	font-size: 34px;
+	color: #cc9a9a;
+	margin: auto 0;
+	transition: color 0.2s ease-out;
+	cursor: pointer;
+}
+.todo-list li .icon-edit {
+    position: absolute;
+    top: 0;
+    bottom: -3px;
+    font-size: 19px;
+    right: 45px;
+}
+.todo-list li .icon-destroy {
+    position: absolute;
+    top: 0;
+    bottom: -3px;
+    right: 10px;
 }
 
 .todo-list li .icon:hover {
@@ -206,4 +230,13 @@ button::-moz-focus-inner {
 
 .todo-list li.editing:last-child {
 	margin-bottom: -1px;
+}
+
+.todo-list li label .title {
+    word-break: break-all;
+    display: block;
+    line-height: 1.2;
+    transition: color 0.4s;
+    font-weight: 400;
+    color: #4d4d4d;
 }

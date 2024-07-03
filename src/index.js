@@ -16,42 +16,53 @@ class App extends Component {
     this.state = {
       todoData: [
         {
-          label: 'Completed task',
+          label: 'task 1',
           id: 1,
           done: false,
           dateOfCreate: new Date(),
           isEditing: false,
+          timer: 240,
+          min: 4,
+          sec: 0,
         },
         {
-          label: 'Editing',
+          label: 'task 2',
           id: 2,
           done: false,
           dateOfCreate: new Date(),
           isEditing: false,
+          timer: 240,
+          min: 4,
+          sec: 0,
         },
         {
-          label: 'Active task',
+          label: 'task 3',
           id: 3,
           done: false,
           dateOfCreate: new Date(),
           isEditing: false,
+          timer: 240,
+          min: 4,
+          sec: 0,
         },
       ],
       filter: 'all',
     }
   }
 
-  addItem = (label) => {
+  addItem = (label, timer) => {
     const newItem = {
       label,
       id: this.maxID++,
       done: false,
       dateOfCreate: new Date(),
-      editing: false,
+      isEditing: false,
+      timer,
     }
 
     this.setState(({ todoData }) => {
       const newArray = [...todoData, newItem]
+      console.log(newArray)
       return { todoData: newArray }
     })
   }

@@ -15,6 +15,7 @@ function ToDoList({ todos, filter, onToggleDone, onDeleted, onEditLabel, onSaveE
     <ToDoListItem
       key={item.id}
       label={item.label}
+      timer={item.timer}
       done={item.done}
       dateOfCreate={item.dateOfCreate}
       important={item.important}

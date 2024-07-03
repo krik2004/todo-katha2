@@ -2,12 +2,14 @@ import './to-do-list-item.css'
 import React, { Component } from 'react'
 import { formatDistanceToNow } from 'date-fns'
 import PropTypes from 'prop-types'
+import Timer from '../timer/'
 
 export default class ToDoListItem extends Component {
   constructor(props) {
     super(props)
     this.state = {
       label: props.label,
+      timer: props.timer,
     }
   }
 
@@ -25,7 +27,7 @@ export default class ToDoListItem extends Component {
   }
 
   render() {
-    const { label, onToggleDone, onDeleted, done, dateOfCreate, onEditLabel, isEditing } = this.props
+    const { label, timer, onToggleDone, onDeleted, done, dateOfCreate, onEditLabel, isEditing } = this.props
 
     let classNames = 'active'
     if (done) {
@@ -44,14 +46,11 @@ export default class ToDoListItem extends Component {
         <div className="view">
           <input id="toggle" className="toggle" type="checkbox" onChange={onToggleDone} checked={done} />
           <label htmlFor="toggle">
-            <span id="toggle-label" className="description">
+            <span id="toggle-label" className="title">
               {label}
             </span>
-            <span className="created">
-              {' '}
-              ... created
-              {timeDistance}
-            </span>
+            <Timer timer={timer} />
+            <span className="created"> ... created {timeDistance}</span>
           </label>
           <button type="button" className="icon icon-edit" onClick={onEditLabel} aria-label="Edit item" />
           <button type="button" className="icon icon-destroy" onClick={onDeleted} aria-label="Delete item" />
@@ -72,6 +71,7 @@ ToDoListItem.defaultProps = {
 
 ToDoListItem.propTypes = {
   label: PropTypes.string,
+  timer: PropTypes.number,
   onDeleted: PropTypes.func.isRequired,
   onToggleDone: PropTypes.func.isRequired,
   done: PropTypes.bool,
