@@ -49,7 +49,7 @@ export default class ToDoListItem extends Component {
             <span id="toggle-label" className="title">
               {label}
             </span>
-            <Timer timer={timer} />
+            <Timer timer={timer} done={done} />
             <span className="created"> ... created {timeDistance}</span>
           </label>
           <button type="button" className="icon icon-edit" onClick={onEditLabel} aria-label="Edit item" />

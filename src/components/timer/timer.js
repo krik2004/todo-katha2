@@ -11,6 +11,7 @@ export default class Timer extends Component {
       min: 5,
       sec: 0,
       isRunning: false,
+      done: props.done,
     }
     this.interval = null
   }
@@ -29,6 +30,12 @@ export default class Timer extends Component {
           }
         }, 1000)
       })
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.done !== prevProps.done && this.props.done) {
+      this.stopTimer()
     }
   }
 
@@ -64,6 +71,7 @@ export default class Timer extends Component {
 }
 Timer.propTypes = {
   timer: PropTypes.number,
+  done: PropTypes.bool,
 }
 {
   /* <h2>Timer: {this.state.timer}</h2>
