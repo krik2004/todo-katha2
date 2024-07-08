@@ -53,14 +53,15 @@ export default class Timer extends Component {
   }
 
   render() {
-    const { timer } = this.state
+    // const { timer } = this.state
+    const { startTimer, timer } = this.props
     const minutes = Math.floor(timer / 60)
     const seconds = timer % 60
     const formattedTime = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
 
     return (
       <span className="description">
-        <button onClick={this.startTimer} className="icon icon-play"></button>
+        <button onClick={startTimer} className="icon icon-play"></button>
         <button onClick={this.stopTimer} className="icon icon-pause"></button>
         {'  '}
         {formattedTime}
@@ -70,6 +71,7 @@ export default class Timer extends Component {
   }
 }
 Timer.propTypes = {
+  startTimer: PropTypes.func.isRequired,
   timer: PropTypes.number,
   done: PropTypes.bool,
 }

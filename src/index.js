@@ -106,16 +106,6 @@ class App extends Component {
     })
   }
 
-  // onToggleDone = (id) => {
-  //   this.setState(({ todoData }) => {
-  //     const idx = todoData.findIndex((el) => el.id === id)
-  //     const oldItem = todoData[idx]
-  //     const newItem = { ...oldItem, done: !oldItem.done }
-  //     const newArray = todoData.with([idx], newItem)
-  //     return { todoData: newArray }
-  //   })
-  // }
-
   onToggleDone = (id) => {
     this.setState(({ todoData }) => {
       const idx = todoData.findIndex((el) => el.id === id)

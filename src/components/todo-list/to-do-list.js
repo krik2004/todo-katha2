@@ -25,7 +25,7 @@ function ToDoList({ todos, filter, onToggleDone, onDeleted, onEditLabel, onSaveE
       onEditLabel={(e) => onEditLabel(item.id, e)}
       isEditing={item.isEditing}
       onSaveEdited={(label) => onSaveEdited(item.id, label)}
-      startTimer={() => startTimer()}
+      startTimer={() => startTimer(item.id)}
     />
   ))
   return <ul className="list-group todo-list">{elements}</ul>
@@ -47,6 +47,7 @@ const TodoItemShape = PropTypes.shape({
   label: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   done: PropTypes.bool.isRequired,
+  timer: PropTypes.number.isRequired,
   dateOfCreate: PropTypes.instanceOf(Date).isRequired,
   isEditing: PropTypes.bool.isRequired,
 })
