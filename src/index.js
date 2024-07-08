@@ -25,6 +25,7 @@ class App extends Component {
           // min: 1,
           // sec: 0,
           isRunning: false,
+          timerId: null,
         },
         {
           label: 'task 2',
@@ -36,6 +37,7 @@ class App extends Component {
           // min: 4,
           // sec: 0,
           isRunning: false,
+          timerId: null,
         },
         {
           label: 'task 3',
@@ -47,37 +49,78 @@ class App extends Component {
           // min: 4,
           // sec: 0,
           isRunning: false,
+          timerId: null,
         },
       ],
       filter: 'all',
     }
   }
-
-  startTimer = (taskId) => {
-    console.log('lol')
-    const updatedTasks = this.state.todoData.map((task) => {
-      if (task.id === taskId && !task.isRunning) {
-        return { ...task, isRunning: true }
-      } else {
-        return task
-      }
-    })
-
-    this.setState({ todoData: updatedTasks }, () => {
-      updatedTasks.forEach((task) => {
-        if (task.isRunning) {
-          task.interval = setInterval(() => {
-            if (task.timer > 0) {
-              task.timer--
-              this.setState({ todoData: updatedTasks })
-            } else {
-              clearInterval(task.interval)
-            }
-          }, 1000)
+  stopTimer = (taskId) => {
+    this.setState((prevState) => {
+      const { todoData } = prevState
+      const updatedTasks = todoData.map((task) => {
+        if (task.id === taskId && task.isRunning) {
+          clearInterval(task.interval)
+          return { ...task, isRunning: false, interval: null }
         }
+        return task
       })
+
+      return { todoData: updatedTasks }
     })
   }
+
+  startTimer = (taskId) => {
+    this.setState((prevState) => {
+      const { todoData } = prevState
+      const updatedTasks = todoData.map((task) => {
+        if (task.id === taskId && !task.isRunning) {
+          return { ...task, isRunning: true }
+        }
+        return task
+      })
+
+      updatedTasks.forEach((task) => {
+        if (task.isRunning && !task.interval) {
+          const interval = setInterval(() => {
+            this.setState((prevState) => {
+              const { todoData } = prevState
+              const updatedTasks = todoData.map((task) => {
+                if (task.id === taskId && task.isRunning) {
+                  return { ...task, timer: task.timer - 1 }
+                }
+                return task
+              })
+              return { todoData: updatedTasks }
+            })
+          }, 1000)
+
+          task.interval = interval
+        } else if (task.isRunning && task.interval) {
+          console.log(`таймер для ${task.id} уже запущен`)
+        }
+      })
+
+      return { todoData: updatedTasks }
+    })
+  }
+
+  // startTimer2 = () => {
+  //   // const { min, sec } = this.state
+  //   // const totalSeconds = parseInt(min, 10) * 60 + parseInt(sec, 10)
+  //   if (!this.state.isRunning) {
+  //     this.setState({ isRunning: true }, () => {
+  //       this.interval = setInterval(() => {
+  //         const { timer } = this.state
+  //         if (timer > 0) {
+  //           this.setState({ timer: timer - 1 })
+  //         } else {
+  //           clearInterval(this.interval)
+  //         }
+  //       }, 1000)
+  //     })
+  //   }
+  // }
 
   addItem = (label, timer) => {
     const newItem = {
@@ -111,8 +154,18 @@ class App extends Component {
       const idx = todoData.findIndex((el) => el.id === id)
       const oldItem = todoData[idx]
       const newItem = { ...oldItem, done: !oldItem.done }
-      const newArray = todoData.with([idx], newItem)
-      return { todoData: newArray }
+
+    
+      if (newItem.done && oldItem.isRunning) {
+        clearInterval(oldItem.interval)
+        return {
+          todoData: [...todoData.slice(0, idx), newItem, ...todoData.slice(idx + 1)],
+        }
+      }
+
+      return {
+        todoData: todoData.map((item) => (item.id === id ? newItem : item)),
+      }
     })
   }
 
@@ -167,6 +220,7 @@ class App extends Component {
             isEditing={isEditing}
             onSaveEdited={this.onSaveEdited}
             startTimer={this.startTimer}
+            stopTimer={this.stopTimer}
           />
           <Footer
             leftCount={leftCount}

@@ -27,7 +27,8 @@ export default class ToDoListItem extends Component {
   }
 
   render() {
-    const { label, timer, onToggleDone, onDeleted, done, dateOfCreate, onEditLabel, isEditing, startTimer } = this.props
+    const { label, timer, onToggleDone, onDeleted, done, dateOfCreate, onEditLabel, isEditing, startTimer, stopTimer } =
+      this.props
 
     let classNames = 'active'
     if (done) {
@@ -49,7 +50,7 @@ export default class ToDoListItem extends Component {
             <span id="toggle-label" className="title">
               {label}
             </span>
-            <Timer timer={timer} done={done} startTimer={() => startTimer()} />
+            <Timer timer={timer} done={done} startTimer={() => startTimer()} stopTimer={() => stopTimer()} />{' '}
             <span className="created"> ... created {timeDistance}</span>
           </label>
           <button type="button" className="icon icon-edit" onClick={onEditLabel} aria-label="Edit item" />
@@ -81,4 +82,5 @@ ToDoListItem.propTypes = {
   isEditing: PropTypes.bool,
   onSaveEdited: PropTypes.func.isRequired,
   startTimer: PropTypes.func.isRequired,
+  stopTimer: PropTypes.func.isRequired,
 }

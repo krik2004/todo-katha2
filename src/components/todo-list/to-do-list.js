@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import ToDoListItem from '../to-do-list-item/to-do-list-item'
 import './todo-list.css'
 
-function ToDoList({ todos, filter, onToggleDone, onDeleted, onEditLabel, onSaveEdited, startTimer }) {
+function ToDoList({ todos, filter, onToggleDone, onDeleted, onEditLabel, onSaveEdited, startTimer, stopTimer }) {
   let filteredTodos = todos
   if (filter === 'completed') {
     filteredTodos = todos.filter((todo) => todo.done)
@@ -26,6 +26,7 @@ function ToDoList({ todos, filter, onToggleDone, onDeleted, onEditLabel, onSaveE
       isEditing={item.isEditing}
       onSaveEdited={(label) => onSaveEdited(item.id, label)}
       startTimer={() => startTimer(item.id)}
+      stopTimer={() => stopTimer(item.id)}
     />
   ))
   return <ul className="list-group todo-list">{elements}</ul>
@@ -63,5 +64,6 @@ ToDoList.propTypes = {
   onEditLabel: PropTypes.func.isRequired,
   onSaveEdited: PropTypes.func.isRequired,
   startTimer: PropTypes.func.isRequired,
+  stopTimer: PropTypes.func.isRequired,
 }
 export default ToDoList

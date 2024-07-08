@@ -16,45 +16,45 @@ export default class Timer extends Component {
     this.interval = null
   }
 
-  startTimer = () => {
-    // const { min, sec } = this.state
-    // const totalSeconds = parseInt(min, 10) * 60 + parseInt(sec, 10)
-    if (!this.state.isRunning) {
-      this.setState({ isRunning: true }, () => {
-        this.interval = setInterval(() => {
-          const { timer } = this.state
-          if (timer > 0) {
-            this.setState({ timer: timer - 1 })
-          } else {
-            clearInterval(this.interval)
-          }
-        }, 1000)
-      })
-    }
-  }
+  // startTimer = () => {
+  //   // const { min, sec } = this.state
+  //   // const totalSeconds = parseInt(min, 10) * 60 + parseInt(sec, 10)
+  //   if (!this.state.isRunning) {
+  //     this.setState({ isRunning: true }, () => {
+  //       this.interval = setInterval(() => {
+  //         const { timer } = this.state
+  //         if (timer > 0) {
+  //           this.setState({ timer: timer - 1 })
+  //         } else {
+  //           clearInterval(this.interval)
+  //         }
+  //       }, 1000)
+  //     })
+  //   }
+  // }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.done !== prevProps.done && this.props.done) {
-      this.stopTimer()
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (this.props.done !== prevProps.done && this.props.done) {
+  //     this.stopTimer()
+  //   }
+  // }
 
-  stopTimer = () => {
-    this.setState({ isRunning: false })
-    clearInterval(this.interval)
-  }
+  // stopTimer = () => {
+  //   this.setState({ isRunning: false })
+  //   clearInterval(this.interval)
+  // }
 
-  resetTimer = () => {
-    this.setState({
-      timer: 0,
-      isRunning: false,
-    })
-    clearInterval(this.interval)
-  }
+  // resetTimer = () => {
+  //   this.setState({
+  //     timer: 0,
+  //     isRunning: false,
+  //   })
+  //   clearInterval(this.interval)
+  // }
 
   render() {
     // const { timer } = this.state
-    const { startTimer, timer } = this.props
+    const { startTimer, timer, stopTimer } = this.props
     const minutes = Math.floor(timer / 60)
     const seconds = timer % 60
     const formattedTime = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
@@ -62,7 +62,7 @@ export default class Timer extends Component {
     return (
       <span className="description">
         <button onClick={startTimer} className="icon icon-play"></button>
-        <button onClick={this.stopTimer} className="icon icon-pause"></button>
+        <button onClick={stopTimer} className="icon icon-pause"></button>
         {'  '}
         {formattedTime}
         {'  '}
@@ -71,10 +71,13 @@ export default class Timer extends Component {
   }
 }
 Timer.propTypes = {
-  startTimer: PropTypes.func.isRequired,
   timer: PropTypes.number,
   done: PropTypes.bool,
+  startTimer: PropTypes.func.isRequired,
+  stopTimer: PropTypes.func.isRequired,
 }
+
+
 {
   /* <h2>Timer: {this.state.timer}</h2>
         <button onClick={this.startTimer}>Start</button>
