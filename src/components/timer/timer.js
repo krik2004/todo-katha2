@@ -8,9 +8,9 @@ export default class Timer extends Component {
     super(props)
     this.state = {
       timer: props.timer,
-      min: 5,
-      sec: 0,
-      isRunning: false,
+      // min: 1,
+      // sec: 0,
+      // isRunning: false,
       done: props.done,
     }
     this.interval = null

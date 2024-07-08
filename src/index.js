@@ -21,9 +21,10 @@ class App extends Component {
           done: false,
           dateOfCreate: new Date(),
           isEditing: false,
-          timer: 240,
-          min: 4,
-          sec: 0,
+          timer: 140,
+          // min: 1,
+          // sec: 0,
+          isRunning: false,
         },
         {
           label: 'task 2',
@@ -32,8 +33,9 @@ class App extends Component {
           dateOfCreate: new Date(),
           isEditing: false,
           timer: 240,
-          min: 4,
-          sec: 0,
+          // min: 4,
+          // sec: 0,
+          isRunning: false,
         },
         {
           label: 'task 3',
@@ -42,12 +44,39 @@ class App extends Component {
           dateOfCreate: new Date(),
           isEditing: false,
           timer: 240,
-          min: 4,
-          sec: 0,
+          // min: 4,
+          // sec: 0,
+          isRunning: false,
         },
       ],
       filter: 'all',
     }
+  }
+
+  startTimer = (taskId) => {
+    console.log('lol')
+    const updatedTasks = this.state.todoData.map((task) => {
+      if (task.id === taskId && !task.isRunning) {
+        return { ...task, isRunning: true }
+      } else {
+        return task
+      }
+    })
+
+    this.setState({ todoData: updatedTasks }, () => {
+      updatedTasks.forEach((task) => {
+        if (task.isRunning) {
+          task.interval = setInterval(() => {
+            if (task.timer > 0) {
+              task.timer--
+              this.setState({ todoData: updatedTasks })
+            } else {
+              clearInterval(task.interval)
+            }
+          }, 1000)
+        }
+      })
+    })
   }
 
   addItem = (label, timer) => {
@@ -58,11 +87,11 @@ class App extends Component {
       dateOfCreate: new Date(),
       isEditing: false,
       timer,
+      isRunning: false,
     }
 
     this.setState(({ todoData }) => {
       const newArray = [...todoData, newItem]
-      console.log(newArray)
       return { todoData: newArray }
     })
   }
@@ -76,6 +105,16 @@ class App extends Component {
       }
     })
   }
+
+  // onToggleDone = (id) => {
+  //   this.setState(({ todoData }) => {
+  //     const idx = todoData.findIndex((el) => el.id === id)
+  //     const oldItem = todoData[idx]
+  //     const newItem = { ...oldItem, done: !oldItem.done }
+  //     const newArray = todoData.with([idx], newItem)
+  //     return { todoData: newArray }
+  //   })
+  // }
 
   onToggleDone = (id) => {
     this.setState(({ todoData }) => {
@@ -137,6 +176,7 @@ class App extends Component {
             onEditLabel={this.onEditLabel}
             isEditing={isEditing}
             onSaveEdited={this.onSaveEdited}
+            startTimer={this.startTimer}
           />
           <Footer
             leftCount={leftCount}

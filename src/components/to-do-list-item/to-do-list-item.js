@@ -27,13 +27,15 @@ export default class ToDoListItem extends Component {
   }
 
   render() {
-    const { label, timer, onToggleDone, onDeleted, done, dateOfCreate, onEditLabel, isEditing } = this.props
+    const { label, timer, onToggleDone, onDeleted, done, dateOfCreate, onEditLabel, isEditing, startTimer } =
+      this.props
 
     let classNames = 'active'
     if (done) {
       classNames = 'completed'
     } else if (isEditing) {
       classNames = 'editing'
+
     }
 
     const timeDistance = formatDistanceToNow(dateOfCreate, {
@@ -45,11 +47,12 @@ export default class ToDoListItem extends Component {
       <li className={classNames}>
         <div className="view">
           <input id="toggle" className="toggle" type="checkbox" onChange={onToggleDone} checked={done} />
-          <label htmlFor="toggle">
+          <label /* htmlFor="toggle"*/> 
             <span id="toggle-label" className="title">
               {label}
             </span>
-            <Timer timer={timer} done={done} />
+            <Timer timer={timer} done={done} startTimer={() => {
+              startTimer()}} />
             <span className="created"> ... created {timeDistance}</span>
           </label>
           <button type="button" className="icon icon-edit" onClick={onEditLabel} aria-label="Edit item" />
@@ -70,6 +73,7 @@ ToDoListItem.defaultProps = {
 }
 
 ToDoListItem.propTypes = {
+  itemId: PropTypes.number.isRequired,
   label: PropTypes.string,
   timer: PropTypes.number,
   onDeleted: PropTypes.func.isRequired,
@@ -79,4 +83,5 @@ ToDoListItem.propTypes = {
   onEditLabel: PropTypes.func.isRequired,
   isEditing: PropTypes.bool,
   onSaveEdited: PropTypes.func.isRequired,
+  startTimer: PropTypes.func.isRequired,
 }

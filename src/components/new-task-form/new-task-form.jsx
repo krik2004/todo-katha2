@@ -37,15 +37,18 @@ export default class Newtaskform extends Component {
   }
 
   onSubmit = (e) => {
-	const timer = parseInt(this.state.min, 10) * 60 + parseInt(this.state.sec, 10)
-    if (e.key === 'Enter' && e.target.value !== '') {
+    let timer = 0
+    if (this.state.min !== '' || this.state.sec !== '') {
+      timer = parseInt(this.state.min, 10) * 60 + parseInt(this.state.sec, 10)
+    }
+
+    if (e.key === 'Enter' && this.state.label !== '') {
       e.preventDefault()
       this.props.addItem(this.state.label, timer)
       this.setState({
         label: '',
         min: '',
         sec: '',
-		
       })
     }
   }
