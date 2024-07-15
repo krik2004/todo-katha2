@@ -146,11 +146,6 @@ const App = () => {
     })
   }
 
-
-  // const setFilter2 = (filterOption) => {
-  //   this.setState({ filter: filterOption })
-  // }
-
   const clearCompleted = () => {
     setTodoData((todoData) => todoData.filter((todo) => !todo.done))
   }
