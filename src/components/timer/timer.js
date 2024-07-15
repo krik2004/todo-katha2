@@ -1,75 +1,27 @@
-import React, { Component } from 'react'
-// import PropTypes from 'prop-types'
-import './timer.css'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import './timer.css'
 
-export default class Timer extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      timer: props.timer,
-      // min: 1,
-      // sec: 0,
-      // isRunning: false,
-      done: props.done,
-    }
-    this.interval = null
-  }
+const Timer = ({ timer, done, startTimer, stopTimer }) => {
+  const [formattedTime, setFormattedTime] = useState('00:00')
 
-  // startTimer = () => {
-  //   // const { min, sec } = this.state
-  //   // const totalSeconds = parseInt(min, 10) * 60 + parseInt(sec, 10)
-  //   if (!this.state.isRunning) {
-  //     this.setState({ isRunning: true }, () => {
-  //       this.interval = setInterval(() => {
-  //         const { timer } = this.state
-  //         if (timer > 0) {
-  //           this.setState({ timer: timer - 1 })
-  //         } else {
-  //           clearInterval(this.interval)
-  //         }
-  //       }, 1000)
-  //     })
-  //   }
-  // }
-
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.done !== prevProps.done && this.props.done) {
-  //     this.stopTimer()
-  //   }
-  // }
-
-  // stopTimer = () => {
-  //   this.setState({ isRunning: false })
-  //   clearInterval(this.interval)
-  // }
-
-  // resetTimer = () => {
-  //   this.setState({
-  //     timer: 0,
-  //     isRunning: false,
-  //   })
-  //   clearInterval(this.interval)
-  // }
-
-  render() {
-    // const { timer } = this.state
-    const { startTimer, timer, stopTimer } = this.props
+  useEffect(() => {
     const minutes = Math.floor(timer / 60)
     const seconds = timer % 60
-    const formattedTime = `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
+    setFormattedTime(`${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`)
+  }, [timer])
 
-    return (
-      <span className="description">
-        <button onClick={startTimer} className="icon icon-play"></button>
-        <button onClick={stopTimer} className="icon icon-pause"></button>
-        {'  '}
-        {formattedTime}
-        {'  '}
-      </span>
-    )
-  }
+  return (
+    <span className="description">
+      <button onClick={!done ? startTimer : null} className="icon icon-play"></button>
+      <button onClick={stopTimer} className="icon icon-pause"></button>
+      {'  '}
+      {formattedTime}
+      {'  '}
+    </span>
+  )
 }
+
 Timer.propTypes = {
   timer: PropTypes.number,
   done: PropTypes.bool,
@@ -77,10 +29,4 @@ Timer.propTypes = {
   stopTimer: PropTypes.func.isRequired,
 }
 
-
-{
-  /* <h2>Timer: {this.state.timer}</h2>
-        <button onClick={this.startTimer}>Start</button>
-        <button onClick={this.stopTimer}>Stop</button>
-        <button onClick={this.resetTimer}>Reset</button> */
-}
+export default Timer

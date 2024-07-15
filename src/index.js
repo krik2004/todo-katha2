@@ -79,7 +79,6 @@ class App extends Component {
         }
         return task
       })
-
       updatedTasks.forEach((task) => {
         if (task.isRunning && !task.interval) {
           const interval = setInterval(() => {
@@ -94,13 +93,11 @@ class App extends Component {
               return { todoData: updatedTasks }
             })
           }, 1000)
-
           task.interval = interval
         } else if (task.isRunning && task.interval) {
           console.log(`таймер для ${task.id} уже запущен`)
         }
       })
-
       return { todoData: updatedTasks }
     })
   }
@@ -154,15 +151,12 @@ class App extends Component {
       const idx = todoData.findIndex((el) => el.id === id)
       const oldItem = todoData[idx]
       const newItem = { ...oldItem, done: !oldItem.done }
-
-    
       if (newItem.done && oldItem.isRunning) {
         clearInterval(oldItem.interval)
         return {
           todoData: [...todoData.slice(0, idx), newItem, ...todoData.slice(idx + 1)],
         }
       }
-
       return {
         todoData: todoData.map((item) => (item.id === id ? newItem : item)),
       }
