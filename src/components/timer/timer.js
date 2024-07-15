@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import './timer.css'
 
 const Timer = ({ timer, done, startTimer, stopTimer }) => {
+  
   const [formattedTime, setFormattedTime] = useState('00:00')
 
   useEffect(() => {

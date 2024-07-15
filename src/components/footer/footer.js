@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './footer.css'
 
-function Footer({ leftCount, setFilter, filter, clearCompleted }) {
+export default function Footer({ leftCount, setFilter, filter, clearCompleted }) {
   return (
     <footer className="footer">
       <span className="todo-count">{leftCount} items left</span>
@@ -39,4 +39,3 @@ Footer.propTypes = {
   filter: PropTypes.string.isRequired,
   leftCount: PropTypes.number.isRequired,
 }
-export default Footer

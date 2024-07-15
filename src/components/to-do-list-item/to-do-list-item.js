@@ -1,68 +1,62 @@
 import './to-do-list-item.css'
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { formatDistanceToNow } from 'date-fns'
 import PropTypes from 'prop-types'
 import Timer from '../timer/'
 
-export default class ToDoListItem extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      label: props.label,
-      timer: props.timer,
-    }
+const ToDoListItem = (props) => {
+  const [label, setLabel] = useState(props.label)
+
+  const {
+    onToggleDone,
+    timer,
+    onDeleted,
+    done,
+    dateOfCreate,
+    onEditLabel,
+    isEditing,
+    startTimer,
+    stopTimer,
+    onSaveEdited,
+  } = props
+
+  let classNames = 'active'
+  if (done) {
+    classNames = 'completed'
+  } else if (isEditing) {
+    classNames = 'editing'
   }
 
-  onInputChange = (e) => {
-    this.setState({
-      label: e.target.value,
-    })
-  }
-
-  onSubmitForm = (e) => {
-    e.preventDefault()
-    const { onSaveEdited } = this.props
-    const { label } = this.state
-    onSaveEdited(label)
-  }
-
-  render() {
-    const { label, timer, onToggleDone, onDeleted, done, dateOfCreate, onEditLabel, isEditing, startTimer, stopTimer } =
-      this.props
-
-    let classNames = 'active'
-    if (done) {
-      classNames = 'completed'
-    } else if (isEditing) {
-      classNames = 'editing'
-    }
-
-    const timeDistance = formatDistanceToNow(dateOfCreate, {
-      addSuffix: true,
-      includeSeconds: true,
-    })
-
-    return (
-      <li className={classNames}>
-        <div className="view">
-          <input id="toggle" className="toggle" type="checkbox" onChange={onToggleDone} checked={done} />
-          <label /* htmlFor="toggle"*/>
-            <span id="toggle-label" className="title">
-              {label}
-            </span>
-            <Timer timer={timer} done={done} startTimer={() => startTimer()} stopTimer={() => stopTimer()} />{' '}
-            <span className="created"> ... created {timeDistance}</span>
-          </label>
-          <button type="button" className="icon icon-edit" onClick={onEditLabel} aria-label="Edit item" />
-          <button type="button" className="icon icon-destroy" onClick={onDeleted} aria-label="Delete item" />
-        </div>
-        <form onSubmit={this.onSubmitForm}>
-          <input type="text" className="edit" onChange={this.onInputChange} value={this.state.label} />
-        </form>
-      </li>
-    )
-  }
+  const timeDistance = formatDistanceToNow(dateOfCreate, {
+    addSuffix: true,
+    includeSeconds: true,
+  })
+  return (
+    <li className={classNames}>
+      <div className="view">
+        <input id="toggle" className="toggle" type="checkbox" onChange={onToggleDone} checked={done} />
+        <label /* htmlFor="toggle"*/>
+          <span id="toggle-label" className="title">
+            {label}
+          </span>
+          <Timer timer={timer} done={done} startTimer={() => startTimer()} stopTimer={() => stopTimer()} />{' '}
+          <span className="created"> ... created {timeDistance}</span>
+        </label>
+        <button type="button" className="icon icon-edit" onClick={onEditLabel} aria-label="Edit item" />
+        <button type="button" className="icon icon-destroy" onClick={onDeleted} aria-label="Delete item" />
+      </div>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          onSaveEdited(label)
+        }}
+      >
+        <input type="text" className="edit" onChange={(e) => setLabel(e.target.value)} value={label} />
+      </form>
+    </li>
+  )
 }
+export default ToDoListItem
 
 ToDoListItem.defaultProps = {
   label: 'TEST1',
