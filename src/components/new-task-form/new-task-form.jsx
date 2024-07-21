@@ -52,6 +52,7 @@ const NewTaskForm = ({ addItem }) => {
         placeholder="Min"
         onChange={onMinChange}
         value={min}
+        onKeyDown={onSubmit}
       />
       <input
         className="new-todo-form__timer"
@@ -61,6 +62,7 @@ const NewTaskForm = ({ addItem }) => {
         placeholder="Sec"
         onChange={onSecChange}
         value={sec}
+        onKeyDown={onSubmit}
       />
     </form>
   )
@@ -69,10 +71,10 @@ const NewTaskForm = ({ addItem }) => {
 NewTaskForm.defaultProps = {
   addItem: () => {
     console.log('addItem function was not passed')
-  }
+  },
 }
 NewTaskForm.propTypes = {
-  addItem: PropTypes.func.isRequired
+  addItem: PropTypes.func.isRequired,
 }
 
 export default NewTaskForm

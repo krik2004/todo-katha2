@@ -5,8 +5,16 @@ import PropTypes from 'prop-types'
 import ToDoListItem from '../to-do-list-item/to-do-list-item'
 import './todo-list.css'
 
-export default function ToDoList({ todos, filter, onToggleDone, onDeleted, onEditLabel, onSaveEdited, startTimer, stopTimer }) {
-
+export default function ToDoList({
+  todos,
+  filter,
+  onToggleDone,
+  onDeleted,
+  onEditLabel,
+  onSaveEdited,
+  startTimer,
+  stopTimer,
+}) {
   let filteredTodos = todos
   if (filter === 'completed') {
     filteredTodos = todos.filter((todo) => todo.done)
@@ -30,7 +38,7 @@ export default function ToDoList({ todos, filter, onToggleDone, onDeleted, onEdi
           onEditLabel={(e) => onEditLabel(item.id, e)}
           isEditing={item.isEditing}
           onSaveEdited={(label) => onSaveEdited(item.id, label)}
-          startTimer={() => startTimer(item.id)}
+          startTimer={(e) => startTimer(item.id, e)}
           stopTimer={() => stopTimer(item.id)}
         />
       ))}
@@ -50,7 +58,7 @@ ToDoList.defaultProps = {
 
 const TodoItemShape = PropTypes.shape({
   label: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   done: PropTypes.bool.isRequired,
   timer: PropTypes.number.isRequired,
   // dateOfCreate: PropTypes.instanceOf(Date).isRequired,

@@ -35,13 +35,13 @@ const ToDoListItem = (props) => {
     <li className={classNames}>
       <div className="view">
         <input id="toggle" className="toggle" type="checkbox" onChange={onToggleDone} checked={done} />
-        <label /* htmlFor="toggle"*/>
+        <div className="label-container" /* htmlFor="toggle"*/>
           <span id="toggle-label" className="title">
             {label}
           </span>
-          <Timer timer={timer} done={done} startTimer={() => startTimer()} stopTimer={() => stopTimer()} />{' '}
+          <Timer timer={timer} done={done} startTimer={(e) => startTimer(e)} stopTimer={() => stopTimer()} />{' '}
           <span className="created"> ... created {timeDistance}</span>
-        </label>
+        </div>
         <button type="button" className="icon icon-edit" onClick={onEditLabel} aria-label="Edit item" />
         <button type="button" className="icon icon-destroy" onClick={onDeleted} aria-label="Delete item" />
       </div>

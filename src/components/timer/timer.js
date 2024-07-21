@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import './timer.css'
 
 const Timer = ({ timer, done, startTimer, stopTimer }) => {
-  
   const [formattedTime, setFormattedTime] = useState('00:00')
 
   useEffect(() => {
@@ -13,13 +12,13 @@ const Timer = ({ timer, done, startTimer, stopTimer }) => {
   }, [timer])
 
   return (
-    <span className="description">
+    <div className="description">
       <button onClick={!done ? startTimer : null} className="icon icon-play"></button>
       <button onClick={stopTimer} className="icon icon-pause"></button>
       {'  '}
       {formattedTime}
       {'  '}
-    </span>
+    </div>
   )
 }
 

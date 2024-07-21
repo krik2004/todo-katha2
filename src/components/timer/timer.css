@@ -1,34 +1,32 @@
-.todo-list li label .description {
+.description {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
   font-size: 13px;
-  color: gray;
+  color: rgb(255, 0, 0);
+  align-items: center;
+  justify-content: center;
 }
-.todo-list li label .description {
-  display: flex;
-  align-items: center; 
-  /* justify-content: center; */
 
-  /* word-break: break-all; */
-  /* display: block; */
-  /* line-height: 1.2; */
-  transition: color 0.4s;
-  font-weight: 400;
-  color: #4d4d4d;
-  gap: 3px;
-}
 *,
 ::after,
 ::before {
   box-sizing: content-box;
 }
-.todo-list li .icon-pause,
-.todo-list li .icon-play {
+
+.icon-pause,
+.icon-play {
   font-size: 15px;
   width: 18px;
   height: 18px;
 }
 
-.todo-list li .icon-play {
+.icon-play {
   font-size: 15px;
+  width: 15px;
+  height: 1%;
 }
 
 .icon-pause::after {
@@ -39,6 +37,6 @@
   content: '▶';
 }
 
-.todo-list li .icon-play {
+.icon-play {
   font-size: 15px;
 }

@@ -1,3 +1,4 @@
+// https://todo-katha-hooks.vercel.app/
 import React, { useState } from 'react'
 // import { useState } from 'react'
 import ReactDOM from 'react-dom/client'
@@ -5,23 +6,23 @@ import ToDoList from './components/todo-list'
 import Newtaskform from './components/new-task-form'
 import Footer from './components/footer'
 import './index.css'
-
+import { v4 as uuidv4 } from 'uuid'
 const App = () => {
-  let maxID = 100
+  // let maxID = 100
   const [todoData, setTodoData] = useState([
     {
       label: 'task 1',
-      id: 1,
+      id: uuidv4(),
       done: false,
       dateOfCreate: new Date(),
       isEditing: false,
-      timer: 140,
+      timer: 2,
       isRunning: false,
       timerId: null,
     },
     {
       label: 'task 2',
-      id: 2,
+      id: uuidv4(),
       done: false,
       dateOfCreate: new Date(),
       isEditing: false,
@@ -31,7 +32,7 @@ const App = () => {
     },
     {
       label: 'task 3',
-      id: 3,
+      id: uuidv4(),
       done: false,
       dateOfCreate: new Date(),
       isEditing: false,
@@ -57,7 +58,9 @@ const App = () => {
     })
   }
 
-  const startTimer = (taskId) => {
+  const startTimer = (taskId, e) => {
+    // e.stopPropagation();
+    console.log('event: ', e.target)
     setTodoData((prevState) => {
       const updatedTasks = prevState.map((task) => {
         if (task.id === taskId && !task.isRunning) {
@@ -71,7 +74,9 @@ const App = () => {
             setTodoData((prevState) => {
               const updatedTasks = prevState.map((task) => {
                 if (task.id === taskId && task.isRunning) {
-                  return { ...task, timer: task.timer - 1 }
+                  if (task.timer === 0) {
+                    stopTimer(task.id)
+                  } else return { ...task, timer: task.timer - 1 }
                 }
                 return task
               })
@@ -125,7 +130,7 @@ const App = () => {
   const addItem = (label, timer) => {
     const newItem = {
       label,
-      id: maxID++,
+      id: uuidv4(),
       done: false,
       dateOfCreate: new Date(),
       isEditing: false,
@@ -134,7 +139,7 @@ const App = () => {
     }
     setTodoData((todoData) => {
       const newArray = [...todoData, newItem]
-      return  newArray 
+      return newArray
     })
   }
 
@@ -149,7 +154,6 @@ const App = () => {
   const clearCompleted = () => {
     setTodoData((todoData) => todoData.filter((todo) => !todo.done))
   }
-
 
   return (
     <section className="todoapp">
@@ -169,12 +173,7 @@ const App = () => {
           filter={filter}
           setFilter={setFilter}
         />
-        <Footer 
-        leftCount={leftCount} 
-        setFilter={setFilter} 
-        filter={filter} 
-        clearCompleted={clearCompleted} 
-        />
+        <Footer leftCount={leftCount} setFilter={setFilter} filter={filter} clearCompleted={clearCompleted} />
       </section>
     </section>
   )
